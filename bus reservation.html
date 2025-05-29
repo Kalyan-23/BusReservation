@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-image: url("BUS1.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+    }
+    .a {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 190px;
+      margin-left: 100px;
+      width: 300px;
+    }
+    .b, .c {
+      width: 94%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .d {
+      width: 102%;
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="a">
+    <input class="b" type="text" id="username" placeholder="Username" />
+    <input class="c" type="password" id="password" placeholder="Password" />
+    <button class="d" onclick="login()">Login</button>
+  </div>
+
+  <script>
+    
+    const users = [
+      { username: "kalyan", password: "kalyan@6" },
+      { username: "pandu", password: "sai@2006" },
+      { username: "koushik", password: "kous@111" },
+      { username: "sripavan", password: "pavan@20" },
+      { username: "anirudh", password: "ani@1234" },
+    ];
+
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      const isValid = users.some(u => u.username === user && u.password === pass);
+
+      if (isValid) {
+        window.location.href = "index.html"; 
+      } else {
+        alert("Invalid Username or Password");
+      }
+    }
+  </script>
+</body>
+</html>

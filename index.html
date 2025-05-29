@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bus Reservation System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; display: flex; }
+    .sidebar { width: 220px; background-color: #343a40; color: white; height: 100vh; position: fixed; padding-top: 20px; }
+    .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; border-bottom: 1px solid #495057; }
+    .sidebar a:hover, .sidebar a.active { background-color: #495057; }
+    main { margin-left: 220px; padding: 20px; width: 100%; }
+    .hidden { display: none; }
+    button { margin-right: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a href="#" onclick="showSection('buses', this)" class="active">🚌 All Buses</a>
+    <a href="#" onclick="showSection('booking', this)">📝 Booking</a>
+    <a href="#" onclick="showSection('ticket', this)">🎟️ Ticket</a>
+    <a href="#" onclick="showSection('history', this)">📋 History</a>
+  </div>
+
+  <main>
+    <section id="buses">
+      <h2>All Bus Routes</h2>
+      <table class="table table-bordered">
+        <thead class="thead-dark"><tr><th>Bus Number</th><th>Pickup Point</th><th>Dropping Point</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>2801</td><td>Tadipatri</td><td>Chennai</td><td><button class="btn btn-sm btn-primary" onclick="startBooking('2801')">Book</button></td></tr>
+          <tr><td>2802</td><td>Rajamundry</td><td>Chennai</td><td><button class="btn btn-sm btn-primary" onclick="startBooking('2802')">Book</button></td></tr>
+          <tr><td>2803</td><td>Bangalore</td><td>Puducherry</td><td><button class="btn btn-sm btn-primary" onclick="startBooking('2803')">Book</button></td></tr>
+          <tr><td>3201</td><td>Chennai</td><td>Bangalore</td><td><button class="btn btn-sm btn-primary" onclick="startBooking('3201')">Book</button></td></tr>
+          <tr><td>7803</td><td>Puducherry</td><td>Chengalpattu</td><td><button class="btn btn-sm btn-primary" onclick="startBooking('7803')">Book</button></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="booking" class="hidden">
+      <h2>Book a Ticket</h2>
+      <form onsubmit="submitBooking(event)">
+        <div id="passengerFields">
+          <div class="form-group">
+            <label>Passenger Name:</label>
+            <input type="text" class="form-control passenger-input" required>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary mb-3" onclick="addPassenger()">➕ Add Passenger</button>
+
+        <div class="form-group">
+          <label>Bus Number:</label>
+          <select id="busNumber" class="form-control" required>
+            <option>2801</option><option>2802</option><option>2803</option><option>3201</option><option>7803</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Number of Seats:</label>
+          <input type="number" id="seats" class="form-control" required min="1" value="1">
+        </div>
+        <button type="submit" class="btn btn-primary">Proceed to Ticket</button>
+      </form>
+    </section>
+
+    <section id="ticket" class="hidden">
+      <h2>Ticket</h2>
+      <div id="ticketDetails" class="border p-3 bg-light"></div>
+      <button class="btn btn-success" onclick="window.print()">🖨️ Print Ticket</button>
+      <button class="btn btn-info" onclick="downloadPDF()">📄 Download PDF</button>
+      <button class="btn btn-danger" onclick="cancelCurrent()">❌ Cancel</button>
+    </section>
+
+    <section id="history" class="hidden">
+      <h2>Booking History</h2>
+      <table class="table table-bordered" id="historyTable">
+        <thead class="thead-dark"><tr><th>Passengers</th><th>Bus Number</th><th>Seats</th><th>Total</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"> </script>
+</body>
+</html>
